@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -24,8 +24,6 @@ BuildRequires:  libtool
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       %{name}-lav%{?_isa} = %{version}-%{release}
-# mencoder for lav2avi.sh
-Requires:       mencoder
 # ffmpeg + which for anytovcd.sh
 Requires:       ffmpeg
 Requires:       which
@@ -118,8 +116,9 @@ make %{?_smp_mflags}
 %make_install
 find %{buildroot} -name "*.la" -delete
 rm -f %{buildroot}%{_infodir}/dir
-# too broken/outdated to be useful in 1.[89].0 (and would come with dep chain)
+
 rm %{buildroot}%{_bindir}/mpegtranscode
+rm %{buildroot}%{_bindir}/lav2avi.sh
 
 %post
 /sbin/install-info %{_infodir}/mjpeg-howto.info %{_infodir}/dir || :
@@ -140,7 +139,6 @@ rm %{buildroot}%{_bindir}/mpegtranscode
 %doc CHANGES ChangeLog AUTHORS BUGS README.lavpipe NEWS TODO
 %{_bindir}/anytovcd.sh
 %{_bindir}/jpeg2yuv
-%{_bindir}/lav2avi.sh
 %{_bindir}/lav2mpeg
 %{_bindir}/lav2wav
 %{_bindir}/lav2yuv
@@ -255,6 +253,9 @@ rm %{buildroot}%{_bindir}/mpegtranscode
 %{_libdir}/liblav*.so
 
 %changelog
+* Sun Jan 08 2017 Simone Caronni <negativo17@gmail.com> - 2.1.0-7
+- Remove lav2avi.sh script and mencoder dependency.
+
 * Sun Jun 05 2016 Simone Caronni <negativo17@gmail.com> - 2.1.0-6
 - Clean up SPEC file.
 - Explicitly declare binaries in the SPEC file.
