@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -12,6 +12,7 @@ Patch2:         mjpegtools-2.1.0-pic.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  gcc-c++
 BuildRequires:  libjpeg-devel
 BuildRequires:  nasm
 BuildRequires:  pkgconfig(libdv) >= 0.9
@@ -110,7 +111,7 @@ done
 %build
 autoreconf -vif
 %configure --disable-static
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -233,12 +234,10 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_mandir}/man1/yuvplay.1*
 
 %files libs
-%{!?_licensedir:%global license %%doc}
 %license COPYING
 %{_libdir}/libm*.so.*
 
 %files lav
-%{!?_licensedir:%global license %%doc}
 %license COPYING
 %{_libdir}/liblav*.so.*
 
@@ -253,6 +252,9 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_libdir}/liblav*.so
 
 %changelog
+* Thu Sep 27 2018 Simone Caronni <negativo17@gmail.com> - 2.1.0-8
+- Add GCC as build requirement.
+
 * Sun Jan 08 2017 Simone Caronni <negativo17@gmail.com> - 2.1.0-7
 - Remove lav2avi.sh script and mencoder dependency.
 
