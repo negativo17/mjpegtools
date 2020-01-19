@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -17,7 +17,6 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  nasm
 BuildRequires:  pkgconfig(libdv) >= 0.9
 BuildRequires:  pkgconfig(sdl) >= 1.1.3
-BuildRequires:  SDL_gfx-devel
 BuildRequires:  pkgconfig(libquicktime) > 0.9.7
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.4.0
@@ -128,13 +127,8 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 [ $1 -eq 0 ] && \
 /sbin/install-info --delete %{_infodir}/mjpeg-howto.info %{_infodir}/dir || :
 
-%post libs -p /sbin/ldconfig
-
-%postun libs -p /sbin/ldconfig
-
-%post lav -p /sbin/ldconfig
-
-%postun lav -p /sbin/ldconfig
+%ldconfig_scriptlets libs
+%ldconfig_scriptlets lav
 
 %files
 %doc CHANGES ChangeLog AUTHORS BUGS README.lavpipe NEWS TODO
@@ -252,6 +246,9 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_libdir}/liblav*.so
 
 %changelog
+* Sun Jan 19 2020 Simone Caronni <negativo17@gmail.com> - 2.1.0-9
+- Disable SDL_gfx and use ldconfig macros.
+
 * Thu Sep 27 2018 Simone Caronni <negativo17@gmail.com> - 2.1.0-8
 - Add GCC as build requirement.
 
