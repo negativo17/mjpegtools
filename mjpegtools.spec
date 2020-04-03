@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -17,7 +17,6 @@ BuildRequires:  libjpeg-devel
 BuildRequires:  nasm
 BuildRequires:  pkgconfig(libdv) >= 0.9
 BuildRequires:  pkgconfig(sdl) >= 1.1.3
-BuildRequires:  pkgconfig(libquicktime) > 0.9.7
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(gtk+-2.0) >= 2.4.0
 BuildRequires:  libtool
@@ -109,7 +108,17 @@ done
 
 %build
 autoreconf -vif
-%configure --disable-static
+%configure \
+  --disable-static \
+  --with-dga \
+  --with-gtk \
+  --with-libdv \
+  --with-libpng \
+  --with-libquicktime \
+  --with-libsdl \
+  --with-v4l \
+  --without-sdlgfx
+
 %make_build
 
 %install
@@ -152,7 +161,6 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_bindir}/png2yuv
 %{_bindir}/pnmtoy4m
 %{_bindir}/ppmtoy4m
-%{_bindir}/qttoy4m
 %{_bindir}/transist.flt
 %{_bindir}/y4mblack
 %{_bindir}/y4mcolorbars
@@ -165,7 +173,6 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_bindir}/y4mstabilizer
 %{_bindir}/y4mtopnm
 %{_bindir}/y4mtoppm
-%{_bindir}/y4mtoqt
 %{_bindir}/y4mtoyuv
 %{_bindir}/y4munsharp
 %{_bindir}/ypipe
@@ -246,6 +253,9 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_libdir}/liblav*.so
 
 %changelog
+* Fri Apr 03 2020 Simone Caronni <negativo17@gmail.com> - 2.1.0-10
+- Disable libquicktime support in tools.
+
 * Sun Jan 19 2020 Simone Caronni <negativo17@gmail.com> - 2.1.0-9
 - Disable SDL_gfx and use ldconfig macros.
 
