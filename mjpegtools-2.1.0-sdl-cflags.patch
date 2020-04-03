@@ -1,7 +1,7 @@
-diff a/y4mutils/Makefile.am b/y4mutils/Makefile.am
---- a/y4mutils/Makefile.am
-+++ b/y4mutils/Makefile.am
-@@ -44,6 +44,7 @@ y4mspatialfilter_LDADD = $(LIBMJPEGUTILS) $(LIBM_LIBS)
+diff -Naur mjpegtools-2.1.0.old/y4mutils/Makefile.am mjpegtools-2.1.0/y4mutils/Makefile.am
+--- mjpegtools-2.1.0.old/y4mutils/Makefile.am	2020-04-03 15:17:34.622562677 +0200
++++ mjpegtools-2.1.0/y4mutils/Makefile.am	2020-04-03 15:17:45.040953129 +0200
+@@ -44,6 +44,7 @@
  
  y4mhist_SOURCES = y4mhist.c
  y4mhist_LDADD = $(SDL_LIBS) $(SDLgfx_LIBS) $(LIBMJPEGUTILS)

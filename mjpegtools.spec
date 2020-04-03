@@ -96,10 +96,7 @@ This package contains development files for building applications that use
 %{name} lavpipe libraries.
 
 %prep 
-%setup -q
-%patch0 -p1 -b .sdl
-%patch1 -p1 -b .format
-%patch2 -p0 -b .fpic
+%autosetup -p1
 
 sed -i -e 's/ARCHFLAGS=.*/ARCHFLAGS=/g' configure*
 for f in docs/yuvfps.1 ; do

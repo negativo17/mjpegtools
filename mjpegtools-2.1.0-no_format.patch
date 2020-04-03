@@ -1,28 +1,7 @@
---- ./lavtools/lav_io.c.orig	2014-07-27 17:48:21.474622974 +0100
-+++ ./lavtools/lav_io.c	2014-07-27 17:48:48.838881166 +0100
-@@ -926,7 +926,7 @@ lav_file_t *lav_open_input_file(char *fi
-             strcat(errmsg, ", quicktime");
- #endif
- 	    strcat(errmsg, ").\n");
--            fprintf(stderr, errmsg);
-+        fprintf(stderr, "%s", errmsg);
- 	    free(lav_fd);
- 	    internal_error = ERROR_FORMAT; /* Format not recognized */
- 	    return 0;
---- ./lavtools/lavtrans.c.orig	2014-07-27 17:58:09.410282056 +0100
-+++ ./lavtools/lavtrans.c	2014-07-27 17:59:24.769016140 +0100
-@@ -275,7 +275,7 @@ int main(int argc, char ** argv)
-    if (process_image_frame != -1)
-    {
-       nv = el_get_video_frame(vbuff, process_image_frame, &el);
--      sprintf(imgfname,outfile);
-+      sprintf(imgfname, "%s", outfile);
-       imgfd = fopen(imgfname,"wb");
-       if (imgfd==0) system_error("opening image file","fopen");
-       res = fwrite(vbuff,nv,1,imgfd);
---- ./lavtools/jpeg2yuv.c.orig	2014-07-27 18:00:55.600900476 +0100
-+++ ./lavtools/jpeg2yuv.c	2014-07-27 18:01:36.848301893 +0100
-@@ -451,7 +451,7 @@ static int generate_YUV4MPEG(parameters_
+diff -Naur mjpegtools-2.1.0.old/lavtools/jpeg2yuv.c mjpegtools-2.1.0/lavtools/jpeg2yuv.c
+--- mjpegtools-2.1.0.old/lavtools/jpeg2yuv.c	2020-04-03 15:17:34.619562564 +0200
++++ mjpegtools-2.1.0/lavtools/jpeg2yuv.c	2020-04-03 15:18:18.149193939 +0200
+@@ -451,7 +451,7 @@
             
             if (firstjpeg) {
                 p = firstjpeg;
@@ -31,9 +10,34 @@
                 firstjpeg = NULL;
             }
             else {
---- ./mplex/main.cpp.orig	2014-07-27 18:11:38.282143657 +0100
-+++ ./mplex/main.cpp	2014-07-27 18:06:40.352252415 +0100
-@@ -614,7 +614,7 @@ bool CmdLineMultiplexJob::ParseWorkaroun
+diff -Naur mjpegtools-2.1.0.old/lavtools/lav_io.c mjpegtools-2.1.0/lavtools/lav_io.c
+--- mjpegtools-2.1.0.old/lavtools/lav_io.c	2020-04-03 15:17:34.620562602 +0200
++++ mjpegtools-2.1.0/lavtools/lav_io.c	2020-04-03 15:18:18.074191128 +0200
+@@ -926,7 +926,7 @@
+             strcat(errmsg, ", quicktime");
+ #endif
+ 	    strcat(errmsg, ").\n");
+-            fprintf(stderr, errmsg);
++        fprintf(stderr, "%s", errmsg);
+ 	    free(lav_fd);
+ 	    internal_error = ERROR_FORMAT; /* Format not recognized */
+ 	    return 0;
+diff -Naur mjpegtools-2.1.0.old/lavtools/lavtrans.c mjpegtools-2.1.0/lavtools/lavtrans.c
+--- mjpegtools-2.1.0.old/lavtools/lavtrans.c	2020-04-03 15:17:34.621562639 +0200
++++ mjpegtools-2.1.0/lavtools/lavtrans.c	2020-04-03 15:18:18.149193939 +0200
+@@ -275,7 +275,7 @@
+    if (process_image_frame != -1)
+    {
+       nv = el_get_video_frame(vbuff, process_image_frame, &el);
+-      sprintf(imgfname,outfile);
++      sprintf(imgfname, "%s", outfile);
+       imgfd = fopen(imgfname,"wb");
+       if (imgfd==0) system_error("opening image file","fopen");
+       res = fwrite(vbuff,nv,1,imgfd);
+diff -Naur mjpegtools-2.1.0.old/mplex/main.cpp mjpegtools-2.1.0/mplex/main.cpp
+--- mjpegtools-2.1.0.old/mplex/main.cpp	2020-04-03 15:17:34.593561590 +0200
++++ mjpegtools-2.1.0/mplex/main.cpp	2020-04-03 15:18:18.149193939 +0200
+@@ -614,7 +614,7 @@
                  if( flag_table[flag].longname != 0 )
                      message += sep;
              }
@@ -42,20 +46,10 @@
              return false;
          }
  
---- ./yuvfilters/yuvkineco.c.orig	2014-07-27 18:15:01.476097522 +0100
-+++ ./yuvfilters/yuvkineco.c	2014-07-27 18:15:29.540366245 +0100
-@@ -48,7 +48,7 @@ buf_debug(char *buf, FILE *fp, const cha
-     } else {
- #ifdef MJPEGTOOLS
-       buf[n] = '\0';
--      mjpeg_debug(buf);
-+      mjpeg_debug("%s", buf);
- #else
-       fputs(buf, stderr);
- #endif
---- ./yuvfilters/yuvfilters.h.orig	2014-07-27 18:37:02.712645244 +0100
-+++ ./yuvfilters/yuvfilters.h	2014-07-27 19:13:28.156101800 +0100
-@@ -34,9 +34,9 @@ extern "C" {
+diff -Naur mjpegtools-2.1.0.old/yuvfilters/yuvfilters.h mjpegtools-2.1.0/yuvfilters/yuvfilters.h
+--- mjpegtools-2.1.0.old/yuvfilters/yuvfilters.h	2020-04-03 15:17:34.618562527 +0200
++++ mjpegtools-2.1.0/yuvfilters/yuvfilters.h	2020-04-03 15:18:18.149193939 +0200
+@@ -34,9 +34,9 @@
  
  #ifdef MJPEGTOOLS
  # define perror(MSG) mjpeg_error("%s: %s", MSG, strerror(errno))
@@ -68,3 +62,15 @@
  #else
  # define WERROR(MSG) write(2, MSG "\n", sizeof MSG)
  # define WERRORL(MSG) do { write(2, MSG, strlen(MSG)); write(2, "\n", 1); } while (0)
+diff -Naur mjpegtools-2.1.0.old/yuvfilters/yuvkineco.c mjpegtools-2.1.0/yuvfilters/yuvkineco.c
+--- mjpegtools-2.1.0.old/yuvfilters/yuvkineco.c	2020-04-03 15:17:34.618562527 +0200
++++ mjpegtools-2.1.0/yuvfilters/yuvkineco.c	2020-04-03 15:18:18.149193939 +0200
+@@ -48,7 +48,7 @@
+     } else {
+ #ifdef MJPEGTOOLS
+       buf[n] = '\0';
+-      mjpeg_debug(buf);
++      mjpeg_debug("%s", buf);
+ #else
+       fputs(buf, stderr);
+ #endif
