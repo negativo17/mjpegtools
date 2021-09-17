@@ -1,6 +1,6 @@
 Name:           mjpegtools
-Version:        2.1.0
-Release:        10%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -250,6 +250,9 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_libdir}/liblav*.so
 
 %changelog
+* Fri Sep 17 2021 Simone Caronni <negativo17@gmail.com> - 2.2.1-1
+- Update to 2.2.1.
+
 * Fri Apr 03 2020 Simone Caronni <negativo17@gmail.com> - 2.1.0-10
 - Disable libquicktime support in tools.
 
