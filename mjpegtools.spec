@@ -6,9 +6,6 @@ License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
 
 Source0:        https://downloads.sourceforge.net/sourceforge/mjpeg/%{name}-%{version}.tar.gz
-Patch0:         mjpegtools-2.1.0-sdl-cflags.patch
-Patch1:         mjpegtools-2.1.0-no_format.patch
-Patch2:         mjpegtools-2.1.0-pic.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
