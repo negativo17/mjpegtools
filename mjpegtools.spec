@@ -1,6 +1,6 @@
 Name:           mjpegtools
 Version:        2.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to manipulate MPEG data
 License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
@@ -130,9 +130,6 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 [ $1 -eq 0 ] && \
 /sbin/install-info --delete %{_infodir}/mjpeg-howto.info %{_infodir}/dir || :
 
-%ldconfig_scriptlets libs
-%ldconfig_scriptlets lav
-
 %files
 %doc CHANGES ChangeLog AUTHORS BUGS README.lavpipe NEWS TODO
 %{_bindir}/anytovcd.sh
@@ -245,6 +242,9 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %{_libdir}/liblav*.so
 
 %changelog
+* Fri Mar 14 2025 Simone Caronni <negativo17@gmail.com> - 2.2.1-2
+- Clean up SPEC file.
+
 * Fri Sep 17 2021 Simone Caronni <negativo17@gmail.com> - 2.2.1-1
 - Update to 2.2.1.
 
@@ -253,16 +253,3 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 
 * Sun Jan 19 2020 Simone Caronni <negativo17@gmail.com> - 2.1.0-9
 - Disable SDL_gfx and use ldconfig macros.
-
-* Thu Sep 27 2018 Simone Caronni <negativo17@gmail.com> - 2.1.0-8
-- Add GCC as build requirement.
-
-* Sun Jan 08 2017 Simone Caronni <negativo17@gmail.com> - 2.1.0-7
-- Remove lav2avi.sh script and mencoder dependency.
-
-* Sun Jun 05 2016 Simone Caronni <negativo17@gmail.com> - 2.1.0-6
-- Clean up SPEC file.
-- Explicitly declare binaries in the SPEC file.
-
-* Sun Oct 19 2014 Sérgio Basto <sergio@serjux.com> - 2.1.0-5
-- Rebuilt for FFmpeg 2.4.3
