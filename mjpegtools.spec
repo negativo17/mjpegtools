@@ -6,6 +6,8 @@ License:        GPLv2
 URL:            http://mjpeg.sourceforge.net/
 
 Source0:        https://downloads.sourceforge.net/sourceforge/mjpeg/%{name}-%{version}.tar.gz
+# https://sourceforge.net/p/mjpeg/Code/3513/tree//trunk/mjpeg_play/y4mdenoise/Region2D.hh?diff=59e3bd5e3bfd81693d67cb2b:3512
+Patch0:         %{name}-gcc15.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -244,6 +246,7 @@ rm %{buildroot}%{_bindir}/lav2avi.sh
 %changelog
 * Fri Mar 14 2025 Simone Caronni <negativo17@gmail.com> - 2.2.1-2
 - Clean up SPEC file.
+- Fix build with GCC 15.
 
 * Fri Sep 17 2021 Simone Caronni <negativo17@gmail.com> - 2.2.1-1
 - Update to 2.2.1.
